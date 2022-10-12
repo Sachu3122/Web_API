@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MVC_Part.Models.MvcEmployee>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+
+<p>
+    <a href="@Url.Action("AddOrEdit","Employee")" class="btn btn-default"><i class="fa fa-plus"></i> Create New</a>
+</p>
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.employee_id)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.first_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hire_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.job_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salary)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.manager_id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.department_id)
+                </th>*@
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.employee_id)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hire_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.job_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salary)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.manager_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.department_id)
+                </td>*@
+            <td>
+                <a href="@Url.Action("AddOrEdit", "Employee", new { id = item.employee_id})" class="btn btn-default"><i class="fa fa-pencil"></i>  Edit</a>
+                <a onclick="Delete(@item.employee_id)" class="btn btn-default"><i class="fa fa-trash"></i>  Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        function Delete(id) {
+            alertify.confirm('Web Api CRUD Operations','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete","Employee")/'+id;
+            },null );
+        }
+    </script>
+}
